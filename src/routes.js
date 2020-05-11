@@ -9,7 +9,7 @@ const AppStack = createStackNavigator()
 export default function Routes() {
     return(
         <NavigationContainer>
-            <AppStack.Navigator screenOptions={{ headerShow: false}}>
+            <AppStack.Navigator screenOptions={{ headerShown: false }}>
                 <AppStack.Screen name="Home" component={ Home } />
             </AppStack.Navigator>
         </NavigationContainer>
