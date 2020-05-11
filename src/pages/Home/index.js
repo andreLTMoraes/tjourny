@@ -4,9 +4,15 @@ import { useNavigation } from '@react-navigation/native'
 import { COLORS } from '../constants'
 import { Feather } from '@expo/vector-icons'
 
-import styles from '../styles'
+import styles from './styles'
 
 export default function Home() {
+    const navigation = useNavigation()
+
+    function navigateToLevels(){
+        navigation.navigate('Levels')
+    }
+
     return(
         <View style={styles.container}>
             <View style={styles.counterContainer}>
@@ -47,7 +53,10 @@ export default function Home() {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity 
+                    style={styles.button}
+                    onPress={() => navigateToLevels()}
+                >
                     <Text style={styles.txtButton}>Níveis</Text>
                 </TouchableOpacity>
             </View>
