@@ -4,6 +4,7 @@ import { COLORS, STYLES } from '../../constants'
 
 export default StyleSheet.create({
     container: STYLES.container,
+    loading: STYLES.loadingTxt,
     counterContainer:{
         flex: 1,
         position: "relative",
@@ -51,7 +52,6 @@ export default StyleSheet.create({
         backgroundColor: COLORS.secondary1,
         borderRadius: 8,
         height: 8,
-        width: "80%",
         position: "absolute",
         top: 0
     },
