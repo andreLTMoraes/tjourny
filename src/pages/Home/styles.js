@@ -1,15 +1,9 @@
 import { StyleSheet } from 'react-native'
-import Constants from 'expo-constants'
 
-import { COLORS } from '../constants'
+import { COLORS, STYLES } from '../../constants'
 
 export default StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingHorizontal: 24,
-        paddingTop: Constants.statusBarHeight +20,
-        backgroundColor: COLORS.primary
-    },
+    container: STYLES.container,
     counterContainer:{
         flex: 1,
         position: "relative",
@@ -95,17 +89,8 @@ export default StyleSheet.create({
         borderWidth: 2,
         borderRadius: 10,
     },
-    txtData:{
-        color: COLORS.secondary2,
-        fontSize: 30,
-        fontWeight: "bold",
-        alignSelf: "flex-end"
-    },
-    label:{
-        color: COLORS.primaryLighter2,
-        fontSize: 22,
-        fontWeight: "bold"
-    },
+    txtData: STYLES.txtData,
+    label: STYLES.label,
     balanceBox:{
         marginBottom: 16,
     },

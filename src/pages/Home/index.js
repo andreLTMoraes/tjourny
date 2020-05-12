@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { View, Image, Picker, Text, TouchableOpacity, FlatList } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { COLORS } from '../constants'
+import { COLORS } from '../../constants'
 import { Feather } from '@expo/vector-icons'
 
 import styles from './styles'
 
 export default function Home() {
     const navigation = useNavigation()
+    const [balance, setBalance] = useState(false)
 
     function navigateToLevels(){
         navigation.navigate('Levels')
@@ -46,7 +47,9 @@ export default function Home() {
                     <Text style={styles.label}>Saldo</Text>
                     <View style={styles.section}>
                         <View style={styles.balance}>
-                            <Text style={styles.txtBalance}>R$ 468,00</Text>
+                            <Text style={styles.txtBalance} disabled={false}>
+                               R$ 468,00
+                            </Text>
                         </View>
                         <TouchableOpacity style={styles.btnView}>
                             <Feather name="eye" size={22} color={COLORS.primary}/>
