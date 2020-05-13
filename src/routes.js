@@ -2,12 +2,12 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import Button from './Components/headerLevelButton'
-
+import { HeaderButton } from './Components/HeaderButton'
 import { COLORS } from './constants'
 
 import Home from './pages/Home'
 import Levels from './pages/Levels'
+import Create from './pages/Create'
 
 const AppStack = createStackNavigator()
 
@@ -28,9 +28,24 @@ export default function Routes() {
                         headerTitleStyle: {
                             fontWeight: 'bold',
                         },
-                        headerRight: Button
+                        headerRight: () => (<HeaderButton goTo="Create" iconName="plus"/>)
                     }}
-                /></AppStack.Navigator>
+                />
+                <AppStack.Screen 
+                    name="Create"
+                    component={ Create } 
+                    options={{
+                        title: '',
+                        headerStyle: {
+                            backgroundColor: COLORS.primary,
+                        },
+                        headerTintColor: COLORS.secondary1,
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                        },
+                    }}
+                />
+            </AppStack.Navigator>
         </NavigationContainer>
     )
 }
