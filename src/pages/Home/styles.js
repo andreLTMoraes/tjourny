@@ -118,16 +118,6 @@ export default StyleSheet.create({
         alignItems: "center",
         marginTop: 12
     },
-    button:{
-        backgroundColor: COLORS.secondary2,
-        height: 36,
-        borderRadius: 4,
-        alignItems: "center",
-        justifyContent: "center"
-    },
-    txtButton: {
-        color: COLORS.primary,
-        fontSize: 16,
-        fontWeight: "bold"
-    }
+    button: STYLES.btnPrimary,
+    txtButton: STYLES.txtButton
 })

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { View, Image, Picker, Text, TouchableOpacity, FlatList, KeyboardAvoidingView, TextInput } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { Feather } from '@expo/vector-icons'
 import Spinner from 'react-native-loading-spinner-overlay'
 
@@ -10,31 +10,20 @@ import api from '../../services/api'
 import styles from '../Create/styles'
 
 export default function Levels() {
-    const [level, setLevels] = useState({})
+    const route = useRoute();
+    const level = route.params.lastLevel
+    const [prevLevelVisible, setprevLevelVisible] = useState(false)
     const [loading, setLoading] = useState(false)
 
-    async function getLevels(){
-        if(loading){
-            return
-        }
-
-        setLoading(true)
-
-        const res = await api.get('', {
-            params: {action: "getLevels"}
-        })
-
-        setLevels([...res.data.levels])
-        setLoading(false)
-    }
+    console.log(level);
     
-    useEffect(() => {
-        getLevels()
-    }, [])
 
     return(
-        <KeyboardAvoidingView style={styles.container}>
-            <Shower>
+        <KeyboardAvoidingView  style={styles.container}>
+            <View style={styles.headerBox}>
+                <Text style={styles.txtHeader}>Cadastrar novo nível</Text>
+            </View>
+            <Shower visible={prevLevelVisible}>
                 <View style={styles.levelCard}>
                     <View style={styles.levelBox}>
                         <Text style={styles.label}>Nível</Text>
@@ -76,11 +65,53 @@ export default function Levels() {
             </Shower>
             <View>
                 <TextInput
-                    placeholder="email"
+                    placeholder="Número de contratos"
+                    style={styles.input}
+                    placeholderTextColor={COLORS.primary}
+                />
+                <TextInput
+                    placeholder="Saldo mínimo"
+                    style={styles.input}
+                    placeholderTextColor={COLORS.primary}
+
+                />
+                <TextInput
+                    placeholder="Meta"
+                    style={styles.input}
+                    placeholderTextColor={COLORS.primary}
+                />
+                <TextInput
+                    placeholder="Operações por dia"
+                    style={styles.input}
+                    placeholderTextColor={COLORS.primary}
+                />
+                <TextInput
+                    placeholder="Risco por operação"
+                    style={styles.input}
+                    placeholderTextColor={COLORS.primary}
+                />
+                <TextInput
+                    placeholder="Loss diário"
+                    style={styles.input}
+                    placeholderTextColor={COLORS.primary}
+                />
+                <TextInput
+                    placeholder="Dias restantes"
                     style={styles.input}
                     placeholderTextColor={COLORS.primary}
                 />
             </View>
+            <TouchableOpacity 
+                style={styles.btnPrevLevel}
+                onPress={() => setprevLevelVisible(!prevLevelVisible)}
+            >
+                <Text style={styles.txtButton}>Ver nível anterior</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+                style={styles.btnCreate}
+            >
+                <Text style={styles.txtButton}>Cadastrar</Text>
+            </TouchableOpacity>
         </KeyboardAvoidingView>
     )
 }

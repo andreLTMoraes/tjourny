@@ -1,20 +1,13 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
 import { Feather } from '@expo/vector-icons'
 
 import { COLORS } from '../constants'
 
 export const HeaderButton = ({
-    goTo = "",
+    onPress = () => {},
     iconName = ""
 }) => {
-    const navigation = useNavigation()
-
-    function navigateTo(link){
-        navigation.navigate(link)
-    }
-
     return(
         <TouchableOpacity 
             style={{
@@ -27,7 +20,7 @@ export const HeaderButton = ({
                 height: 40,
                 borderRadius: 20
             }}
-            onPress={() => navigateTo(goTo)}>
+            onPress={onPress}>
             <Feather name={iconName} size={22} color={COLORS.primary}/>
         </TouchableOpacity>
     )

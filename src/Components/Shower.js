@@ -3,14 +3,14 @@ import { View } from 'react-native'
 
 export const Shower = ({
     children = "",
-    visible = true
+    visible = false
 }) => {
-    if({visible}){
+    if(visible){
         return(
             <View>
                 {children}
             </View>
         )
     }
-    return
+    return(<View></View>)
 }

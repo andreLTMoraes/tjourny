@@ -12,10 +12,14 @@ export const COLORS = {
 }
 
 export const STYLES = {
+    containerForNavBar: {
+        flex: 1,
+        paddingTop: Constants.statusBarHeight,
+        backgroundColor: COLORS.primary
+    },
     container: {
         flex: 1,
         paddingHorizontal: 24,
-        paddingTop: Constants.statusBarHeight,
         backgroundColor: COLORS.primary
     },
     label:{
@@ -31,5 +35,26 @@ export const STYLES = {
         fontSize: 30,
         fontWeight: "bold",
         alignSelf: "flex-end"
+    },
+    btnPrimary:{
+        backgroundColor: COLORS.secondary2,
+        height: 36,
+        borderRadius: 4,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 12
+    },
+    btnSecondary:{
+        backgroundColor: COLORS.secondary1,
+        height: 36,
+        borderRadius: 4,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 12
+    },
+    txtButton:{
+        color: COLORS.primary,
+        fontSize: 16,
+        fontWeight: "bold"
     }
 }

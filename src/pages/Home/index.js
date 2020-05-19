@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Image, Picker, Text, TouchableOpacity, FlatList } from 'react-native'
+import { View, Picker, Text, TouchableOpacity} from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Feather } from '@expo/vector-icons'
 import Spinner from 'react-native-loading-spinner-overlay'
@@ -11,31 +11,43 @@ import styles from './styles'
 export default function Home() {
     const navigation = useNavigation()
     const [data, setData] = useState({})
+    const [brokers, setBrokers] = useState([])
+    const [selectedBroker, setSelectedBroker] = useState("")
     const [visible, setVisible] = useState(false)
     const [balance, setBalance] = useState("")
     const [icon, setIcon] = useState("eye")
     const [loading, setLoading] = useState(false)
 
     async function getData(){
-        if(loading){
-            return
-        }
 
-        setLoading(true)
+        console.log("selectedBroker in getData: "+selectedBroker);
+        
+        if(visible) hideShow()
 
         const res = await api.get('', {
-            params: {action: "getHome", brokerName: "ModalMais"}
+            params: {action: "getHome", brokerName: selectedBroker}
         })
-
-        console.log(res.data);
         
-
         setData(res.data)
         setLoading(false)
     }
+
+    async function getBrokers(){
+        setLoading(true)
+
+        await api.get('', {
+            params: {action: "getBrokers"}
+        }).then((res) => {
+            setBrokers(res.data.brokers)
+            console.log("selectedBroker in getBrokers: "+res.data.brokers[0]);
+            
+            setSelectedBroker(res.data.brokers[0])
+            getData()
+        })
+    }
     
     useEffect(() => {
-        getData()
+        getBrokers()
     }, [])
 
     function navigateToLevels(){
@@ -76,8 +88,17 @@ export default function Home() {
                         <Text style={styles.nextLevel}>{data.level + 1}</Text>
                     </View>
                 </View>
-                <Picker style={styles.picker}>
-                    <Picker.Item label="ModalMais" value="modalmais" />
+                <Picker style={styles.picker}
+                    selectedValue={selectedBroker}
+                    onValueChange={(broker) => {
+                        setSelectedBroker(broker)
+                        console.log("selectedBroker: " + broker);
+                        setLoading(true)
+                        getData()
+                    }}>
+                    {brokers.map((broker, index) => {
+                        return(<Picker.Item label={broker} value={broker} key={index}/>)
+                    })}
                 </Picker>
                 <View style={styles.section}>
                     <View style={styles.dataBox}>

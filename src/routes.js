@@ -2,7 +2,6 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import { HeaderButton } from './Components/HeaderButton'
 import { COLORS } from './constants'
 
 import Home from './pages/Home'
@@ -14,8 +13,8 @@ const AppStack = createStackNavigator()
 export default function Routes() {
     return(
         <NavigationContainer>
-            <AppStack.Navigator>
-                <AppStack.Screen options={{ headerShown: false }} name="Home" component={ Home } />
+            <AppStack.Navigator screenOptions={{ headerShown:false }}>
+                <AppStack.Screen name="Home" component={ Home } />
                 <AppStack.Screen 
                     name="Levels" 
                     component={ Levels } 
@@ -27,8 +26,7 @@ export default function Routes() {
                         headerTintColor: COLORS.secondary1,
                         headerTitleStyle: {
                             fontWeight: 'bold',
-                        },
-                        headerRight: () => (<HeaderButton goTo="Create" iconName="plus"/>)
+                        }
                     }}
                 />
                 <AppStack.Screen 
