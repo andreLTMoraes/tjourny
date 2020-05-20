@@ -7,6 +7,7 @@ import Spinner from 'react-native-loading-spinner-overlay'
 import { COLORS } from '../../constants'
 import api from '../../services/api'
 import styles from './styles'
+import { Shower } from '../../Components/Shower'
 
 export default function Home() {
     const navigation = useNavigation()
@@ -14,7 +15,6 @@ export default function Home() {
     const [brokers, setBrokers] = useState([])
     const [selectedBroker, setSelectedBroker] = useState("")
     const [visible, setVisible] = useState(false)
-    const [balance, setBalance] = useState("")
     const [icon, setIcon] = useState("eye")
     const [loading, setLoading] = useState(false)
 
@@ -56,13 +56,7 @@ export default function Home() {
 
     function hideShow(){
         setVisible(!visible)
-        if(visible){
-            setIcon("eye-off")
-            setBalance(data.balance)
-        } else {
-            setIcon("eye")
-            setBalance("")
-        }
+        visible ? setIcon("eye-off") : setIcon("eye")
     }
 
     return(
@@ -114,9 +108,11 @@ export default function Home() {
                     <Text style={styles.label}>Saldo</Text>
                     <View style={styles.section}>
                         <View style={styles.balance}>
-                            <Text style={styles.txtBalance}>
-                               {balance}
-                            </Text>
+                            <Shower visible={visible}>
+                                <Text style={styles.txtBalance}>
+                                    {data.balance}
+                                </Text>
+                            </Shower>
                         </View>
                         <TouchableOpacity style={styles.btnView} onPress={() => hideShow()}>
                             <Feather name={icon} size={22} color={COLORS.primary}/>

@@ -27,17 +27,17 @@ export default StyleSheet.create({
         paddingLeft: 12,
         flexDirection: "row",
         justifyContent: "space-between",
-        alignItems: "center",
+        alignContent:"center",
         borderBottomWidth: 1,
         borderBottomColor: COLORS.primaryLighter1,
-        paddingBottom: 20
+        paddingBottom: 20,
     },
     levelLabel:{
         flexDirection: "row",
         alignItems: "center",
     },
     levelBtnEditBox:{
-        flexDirection: "row"
+        flexDirection: "row",
     },
     levelBtnEdit:{
         backgroundColor: COLORS.secondary1,
@@ -81,13 +81,12 @@ export default StyleSheet.create({
     addLine:{
         backgroundColor: COLORS.primaryLighter2,
         width: "99%",
-        height: 2
+        height: 2,
     },
     addBtn: {
         backgroundColor: COLORS.secondary1,
         alignItems: "center",
         justifyContent: "center",
-        marginVertical: 3,
         marginHorizontal: 11,
         width: 40,
         height: 40,
