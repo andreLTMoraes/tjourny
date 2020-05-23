@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 import { Feather } from '@expo/vector-icons'
 import Spinner from 'react-native-loading-spinner-overlay'
 
-import { HeaderButton } from '../../Components/HeaderButton'
+import { Level } from '../../Components/Level/Level'
 import { Shower } from '../../Components/Shower'
 import { COLORS } from '../../constants'
 import api from '../../services/api'
@@ -126,101 +126,25 @@ export default function Levels() {
                     keyExtractor={level => String(level.level)}
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item: level , index}) => (
-                        <View>
-                            <View style={styles.levelCard}>
-                                <View style={styles.levelCardHeader}>
-                                    <View style={styles.levelLabel}>
-                                        <Text style={[styles.label, {marginRight: 15}]}>Nível</Text>
-                                        <Text style={styles.level}>{ level.level }</Text>
+                            <View>
+                                <Level 
+                                    key = {index} 
+                                    level = {level}
+                                    editing = {editBtnView}
+                                />
+                                <Shower visible={editBtnView}>
+                                    <View style={styles.addBtnContainer}>
+                                        <View style={styles.addLine}></View>
+                                        <TouchableOpacity 
+                                            style={styles.addBtn}
+                                            onPress={() => addLevel(index)}>
+                                            <Feather name="plus" size={22} color={COLORS.primary}/>
+                                        </TouchableOpacity>
                                     </View>
-                                    <View>
-                                        <Shower visible={level.editing}>
-                                            <View style={styles.levelBtnEditBox}>
-                                                {/* Botões para edição de nível */}
-                                                <TouchableOpacity 
-                                                    style={styles.levelBtnEdit}
-                                                    onPress={() => addLevelCancel(index)}>
-                                                    <Feather name="x" size={22} color={COLORS.primary}/>
-                                                </TouchableOpacity>
-                                                <TouchableOpacity 
-                                                    style={styles.levelBtnEdit}
-                                                    onPress={() => {}}>
-                                                    <Feather name="check" size={22} color={COLORS.primary}/>
-                                                </TouchableOpacity>
-                                            </View>
-                                        </Shower>
-                                        <Shower visible={editBtnView}>
-                                            <View style={styles.levelBtnEditBox}>
-                                                {/* Botões para edição da lista de níveis */}
-                                                <TouchableOpacity 
-                                                    style={styles.levelBtnEdit}
-                                                    onPress={() => {}}>
-                                                    <Feather name="edit-3" size={22} color={COLORS.primary}/>
-                                                </TouchableOpacity>
-                                                <TouchableOpacity 
-                                                    style={styles.levelBtnEdit}
-                                                    onPress={() => {}}>
-                                                    <Feather name="trash-2" size={22} color={COLORS.primary}/>
-                                                </TouchableOpacity>
-                                            </View>
-                                        </Shower>
-                                    </View>
-                                </View>
-                                <View style={styles.levelcardData}>
-                                    <View style={styles.row}>
-                                        <View style={styles.column}>
-                                            <Text style={styles.label}>Lote</Text>
-                                            <Text style={styles.txtData}>{ level.lot }</Text>
-                                        </View>
-                                        <View style={styles.column}>
-                                            <Text style={styles.label}>Operações/Dia</Text>
-                                            <Text style={styles.txtData}>{ level.opPerDay }</Text>
-                                        </View>
-                                    </View>
-                                    <View style={styles.row}>
-                                        <View style={styles.column}>
-                                            <Text style={styles.label}>Mínimo</Text>
-                                            <Text style={styles.txtData}>R$ {level.minimum},00</Text>
-                                        </View>
-                                        <View style={styles.column}>
-                                            <Text style={styles.label}>Meta</Text>
-                                            <Text style={styles.txtData}>R$ { level.target },00</Text>
-                                        </View>
-                                    </View>
-                                    <View style={styles.row}>
-                                        <View style={styles.column}>
-                                            <Text style={styles.label}>Loss(pt)</Text>
-                                            <Text style={styles.txtData}>{ level.riscPt } pts</Text>
-                                        </View>
-                                        <View style={styles.column}>
-                                            <Text style={styles.label}>Loss(R$)</Text>
-                                            <Text style={styles.txtData}>R$ { level.lossDay },00</Text>
-                                        </View>
-                                    </View>
-                                    <View style={styles.row}>
-                                        <View style={styles.column}>
-                                            <Text style={styles.label}>Loss diário</Text>
-                                            <Text style={styles.txtData}>R$ {level.lossDay },00</Text>
-                                        </View>
-                                        <View style={styles.column}>
-                                            <Text style={styles.label}>Dias restantes</Text>
-                                            <Text style={styles.txtData}>{ level.surviveDays }</Text>
-                                        </View>
-                                    </View>
-                                </View>
+                                </Shower>
                             </View>
-                            <Shower visible={editBtnView}>
-                                <View style={styles.addBtnContainer}>
-                                    <View style={styles.addLine}></View>
-                                    <TouchableOpacity 
-                                        style={styles.addBtn}
-                                        onPress={() => addLevel(index)}>
-                                        <Feather name="plus" size={22} color={COLORS.primary}/>
-                                    </TouchableOpacity>
-                                </View>
-                            </Shower>
-                        </View>
-                    )}
+                        )
+                    }
                 />
             </View>
         </View>

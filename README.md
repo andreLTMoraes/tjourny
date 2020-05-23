@@ -1,6 +1,6 @@
 <h1 align="center">
 <br>
-  <img src="./assets/splash.png" alt="Be_The_Hero" width="240">
+  <img src="./assets/splash.png" alt="TJourny" width="240">
 <br>
 <br>
 T-Journey
@@ -15,10 +15,10 @@ T-Journey
 </p>
 
 [//]: # (Add your gifs/images here:)
-[//]: # (<div>)
-[//]: #   (<img src="https://i.ibb.co/Gx83jHp/mobile.gif" )
-[//]: # (alt="demo" height="425">)
-[//]: # (</div>)
+<div align="center">
+  <img src="https://i.ibb.co/R3R0JXX/demo.gif" 
+    alt="demo" height="425">
+</div>
 
 <hr />
 
