@@ -14,6 +14,13 @@ T-Journey
   </a>
 </p>
 
+<p align="center">
+  <a href="#o-projeto">O Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#recursos">Recursos</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#planilhas">Planilhas</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#licença">Licença</a>
+</p>
+
 [//]: # (Add your gifs/images here:)
 <div align="center">
   <img src="https://i.ibb.co/R3R0JXX/demo.gif" 
@@ -22,15 +29,26 @@ T-Journey
 
 <hr />
 
-## Recursos
-[//]: # (Add the features of your project here:)
+## O Projeto
 O projeto pretende integrar e manipular dados de planilhas para monitoração e acompanhamento do progesso nas operações da B3.
 
 O Projeto tem caráter pessoal.
 
+## Recursos
+[//]: # (Add the features of your project here:)
+
 - ⚛️ **React Native** — Uma biblioteca que prove uma forma de criar apps nativas para Android e iOS
 - 💹 **Google Sheets** — Planilhas do Google
 - :scroll: **Google Apps Script** - Plataforma de scripts
+
+## Planilhas
+Há dois tipos de planilhas no projeto. As planilhas para controle operacional e a planilha de gestão de risco.
+
+ As planilhas de controle operacional, registram cada operação realizada e o desempenho diário, semanal e mensal. Uma para cada corretora.
+
+ A planilha de gestão de risco, define níveis graduais com regras operacionais e o registro das planilhas de cada corretora.
+
+ <a href="https://drive.google.com/drive/folders/1LnNMy-1USZDl-1AQMMrAhHbOi7cBRBzj?usp=sharing">Aqui</a> você pode acessar as planilhas de demonstração.
 
 ## Licença
 

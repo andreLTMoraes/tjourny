@@ -16,39 +16,39 @@ export default function Home() {
     const [selectedBroker, setSelectedBroker] = useState("")
     const [visible, setVisible] = useState(false)
     const [icon, setIcon] = useState("eye")
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     async function getData(){
+        if(selectedBroker){        
+            if(visible) hideShow()
 
-        console.log("selectedBroker in getData: "+selectedBroker);
-        
-        if(visible) hideShow()
-
-        const res = await api.get('', {
-            params: {action: "getHome", brokerName: selectedBroker}
-        })
-        
-        setData(res.data)
-        setLoading(false)
+            const res = await api.get('', {
+                params: {action: "getHome", brokerName: selectedBroker}
+            })
+            
+            setData(res.data)
+            setLoading(false)
+        }
     }
 
     async function getBrokers(){
         setLoading(true)
-
-        await api.get('', {
-            params: {action: "getBrokers"}
-        }).then((res) => {
+        try{
+            const res = await api.get('', {params: {action: 'getBrokers'}})
             setBrokers(res.data.brokers)
-            console.log("selectedBroker in getBrokers: "+res.data.brokers[0]);
-            
             setSelectedBroker(res.data.brokers[0])
-            getData()
-        })
+        } catch(error) {
+            console.log(error)
+        }
     }
     
     useEffect(() => {
         getBrokers()
     }, [])
+
+    useEffect(() => {
+        getData()
+    }, [selectedBroker])
 
     function navigateToLevels(){
         navigation.navigate('Levels')
@@ -86,9 +86,7 @@ export default function Home() {
                     selectedValue={selectedBroker}
                     onValueChange={(broker) => {
                         setSelectedBroker(broker)
-                        console.log("selectedBroker: " + broker);
                         setLoading(true)
-                        getData()
                     }}>
                     {brokers.map((broker, index) => {
                         return(<Picker.Item label={broker} value={broker} key={index}/>)
