@@ -45,6 +45,7 @@ export default StyleSheet.create({
     },
     column: {
         alignItems: "center",
+        justifyContent: "flex-end",
         width: 120,
         marginVertical: 10,
     },
@@ -61,5 +62,14 @@ export default StyleSheet.create({
         color: COLORS.secondary2,
         fontSize: 22,
         fontWeight: "bold",
+    },
+    levelInput: {
+        width: 100,
+        textAlign: "center",
+        borderBottomWidth: 2,
+        borderBottomColor: COLORS.primaryLighter1,
+        color: COLORS.secondary2,
+        fontSize: 22,
+        fontWeight: "bold"
     }
 })

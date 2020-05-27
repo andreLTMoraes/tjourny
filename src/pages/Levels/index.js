@@ -5,6 +5,7 @@ import { Feather } from '@expo/vector-icons'
 import Spinner from 'react-native-loading-spinner-overlay'
 
 import { Level } from '../../Components/Level/Level'
+import { LevelEdit } from '../../Components/Level/LevelEdit'
 import { Shower } from '../../Components/Shower'
 import { COLORS } from '../../constants'
 import api from '../../services/api'
@@ -43,13 +44,6 @@ export default function Levels() {
     function addLevel(index){
         var level = {
             level: index + 2,
-            lossDay: 0,
-            lot: 0,
-            minimum: 0,
-            opPerDay: 0,
-            riscMoney: 0,
-            riscPt: 0,
-            surviveDays: 0,
             editing: true
         }
 
@@ -127,11 +121,17 @@ export default function Levels() {
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item: level , index}) => (
                             <View>
-                                <Level 
+                                {level.editing ? <LevelEdit
+                                    key = {index}
+                                    level = {level}
+                                    cancelAction = {() => addLevelCancel(index)}
+                                />
+                                : <Level
                                     key = {index} 
                                     level = {level}
                                     editing = {editBtnView}
-                                />
+                                />}
+                                
                                 <Shower visible={editBtnView}>
                                     <View style={styles.addBtnContainer}>
                                         <View style={styles.addLine}></View>

@@ -66,7 +66,7 @@ export const Level = ({
                     </View>
                     <View style={styles.column}>
                         <Text style={styles.label}>Loss(R$)</Text>
-                        <Text style={styles.txtData}>R$ { level.lossDay },00</Text>
+                        <Text style={styles.txtData}>R$ { level.riscMoney },00</Text>
                     </View>
                 </View>
                 <View style={styles.row}>
