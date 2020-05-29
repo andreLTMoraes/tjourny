@@ -7,7 +7,6 @@ import Spinner from 'react-native-loading-spinner-overlay'
 import { COLORS } from '../../constants'
 import api from '../../services/api'
 import styles from './styles'
-import { Shower } from '../../Components/Shower'
 
 export default function Home() {
     const navigation = useNavigation()
@@ -15,8 +14,11 @@ export default function Home() {
     const [brokers, setBrokers] = useState([])
     const [selectedBroker, setSelectedBroker] = useState("")
     const [visible, setVisible] = useState(false)
-    const [icon, setIcon] = useState("eye")
     const [loading, setLoading] = useState(true)
+
+    setTimeout(() => {
+        setLoading(false)
+    }, 100000)
 
     async function getData(){
         if(selectedBroker){        
@@ -52,11 +54,6 @@ export default function Home() {
 
     function navigateToLevels(){
         navigation.navigate('Levels')
-    }
-
-    function hideShow(){
-        setVisible(!visible)
-        visible ? setIcon("eye-off") : setIcon("eye")
     }
 
     return(
@@ -103,17 +100,14 @@ export default function Home() {
                     </View>
                 </View>
                 <View style={styles.balanceBox}>
-                    <Text style={styles.label}>Saldo</Text>
                     <View style={styles.section}>
                         <View style={styles.balance}>
-                            <Shower visible={visible}>
-                                <Text style={styles.txtBalance}>
-                                    {data.balance}
-                                </Text>
-                            </Shower>
+                            <Text style={styles.txtBalance}>
+                                {visible ? data.balance : "Saldo"}
+                            </Text>
                         </View>
-                        <TouchableOpacity style={styles.btnView} onPress={() => hideShow()}>
-                            <Feather name={icon} size={22} color={COLORS.primary}/>
+                        <TouchableOpacity style={styles.btnView} onPress={() => setVisible(!visible)}>
+                            <Feather name={visible ? "eye-off" : "eye"} size={22} color={COLORS.primary}/>
                         </TouchableOpacity>
                     </View>
                 </View>

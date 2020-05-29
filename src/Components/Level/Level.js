@@ -2,7 +2,6 @@ import React from 'react'
 import { View, Text, TouchableOpacity, Input, StyleSheet } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 
-import { Shower } from '../Shower'
 import { COLORS } from '../../constants'
 import  styles from './styles'
 
@@ -11,8 +10,6 @@ export const Level = ({
     editing = false,
     editAction = () => {},
     deleteAction = () => {},
-    cancelAction = () => {},
-    confirmAction = () => {}
 }) => {
     return(
         <View style={styles.levelCard}>
@@ -22,7 +19,7 @@ export const Level = ({
                     <Text style={styles.level}>{ level.level }</Text>
                 </View>
                 <View>
-                    <Shower visible={editing}>
+                    {editing &&
                         <View style={styles.levelBtnEditBox}>
                             <TouchableOpacity 
                                 style={styles.levelBtnEdit}
@@ -35,7 +32,7 @@ export const Level = ({
                                 <Feather name="trash-2" size={22} color={COLORS.primary}/>
                             </TouchableOpacity>
                         </View>
-                    </Shower>
+                    }
                 </View>
             </View>
             <View style={styles.levelcardData}>

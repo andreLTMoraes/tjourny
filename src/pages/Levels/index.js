@@ -6,7 +6,6 @@ import Spinner from 'react-native-loading-spinner-overlay'
 
 import { Level } from '../../Components/Level/Level'
 import { LevelEdit } from '../../Components/Level/LevelEdit'
-import { Shower } from '../../Components/Shower'
 import { COLORS } from '../../constants'
 import api from '../../services/api'
 import styles from '../Levels/styles'
@@ -19,6 +18,10 @@ export default function Levels() {
     const [loading, setLoading] = useState(false)
     const [btnHeaderIcon, setbtnHeaderIcon] = useState("edit-3")
     const [editBtnView, setEditBtnView] = useState(false)
+
+    setTimeout(() => {
+        setLoading(false)
+    }, 50000)
 
     async function getLevels(){
         if(loading){
@@ -88,6 +91,25 @@ export default function Levels() {
 
     }
 
+    function editLevel(index) {
+        const newLevels = levels
+
+        Object.entries(newLevels[index]).map((e) => {
+            newLevels[index][e[0]] = String(e[1])
+        })
+        
+        newLevels[index]["editing"] = true
+
+        setLevels(newLevels)
+        
+    }
+
+    function editLevelCancel(index){
+        const newLevels = levels
+
+        newLevels[index]["editing"] = false
+    }
+
     useEffect(() => {
         getLevels()
     }, [])
@@ -121,18 +143,19 @@ export default function Levels() {
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item: level , index}) => (
                             <View>
-                                {level.editing ? <LevelEdit
+                                {level.editing || level.adding ? <LevelEdit
                                     key = {index}
                                     level = {level}
-                                    cancelAction = {() => addLevelCancel(index)}
+                                    cancelAction = {() => {level.editing ? editLevelCancel(index) : addLevelCancel(index)}}
                                 />
                                 : <Level
                                     key = {index} 
                                     level = {level}
+                                    editAction = {() => editLevel(index)}
                                     editing = {editBtnView}
                                 />}
                                 
-                                <Shower visible={editBtnView}>
+                                {editBtnView &&
                                     <View style={styles.addBtnContainer}>
                                         <View style={styles.addLine}></View>
                                         <TouchableOpacity 
@@ -141,7 +164,7 @@ export default function Levels() {
                                             <Feather name="plus" size={22} color={COLORS.primary}/>
                                         </TouchableOpacity>
                                     </View>
-                                </Shower>
+                                }
                             </View>
                         )
                     }
