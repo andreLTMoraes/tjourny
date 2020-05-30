@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Image, Picker, Text, TouchableOpacity, FlatList, TouchableWithoutFeedback } from 'react-native'
+import { View, Text, TouchableOpacity, FlatList } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Feather } from '@expo/vector-icons'
 import Spinner from 'react-native-loading-spinner-overlay'
@@ -12,22 +12,14 @@ import styles from '../Levels/styles'
 
 export default function Levels() {
     const navigation = useNavigation()
-    const [emptyLevel, setEmptyLevel] = useState({})
+    const [editingLevelIndex, setEditingLevelIndex] = useState(-1)
+    const [editingLevel, setEditingLevel] = useState({})
     const [addingLevel, setAddingLevel] = useState(false)
     const [levels, setLevels] = useState([])
     const [loading, setLoading] = useState(false)
-    const [btnHeaderIcon, setbtnHeaderIcon] = useState("edit-3")
     const [editBtnView, setEditBtnView] = useState(false)
 
-    setTimeout(() => {
-        setLoading(false)
-    }, 50000)
-
     async function getLevels(){
-        if(loading){
-            return
-        }
-
         setLoading(true)
 
         const res = await api.get('', {
@@ -37,11 +29,6 @@ export default function Levels() {
         setLevels([...res.data.levels])
 
         setLoading(false)
-    }
-
-    function editLevels(){
-        setEditBtnView(!editBtnView)
-        editBtnView ? setbtnHeaderIcon("edit-3") : setbtnHeaderIcon("x")
     }
 
     function addLevel(index){
@@ -92,20 +79,20 @@ export default function Levels() {
     }
 
     function editLevel(index) {
-        const newLevels = levels
+        setEditBtnView(false)
+        setEditingLevelIndex(index)
 
-        Object.entries(newLevels[index]).map((e) => {
-            newLevels[index][e[0]] = String(e[1])
+        const tempLevel = {}
+
+        Object.entries(levels[index]).map((e) => {
+            tempLevel[e[0]] = String(e[1])
         })
         
-        newLevels[index]["editing"] = true
-
-        setLevels(newLevels)
-        
+        setEditingLevel(tempLevel)
     }
 
     function editLevelCancel(index){
-        const newLevels = levels
+         const newLevels = levels
 
         newLevels[index]["editing"] = false
     }
@@ -125,8 +112,8 @@ export default function Levels() {
                 <TouchableOpacity 
                     disabled={addingLevel}
                     style={[styles.levelBtnEdit,{backgroundColor: COLORS.secondary2}]}
-                    onPress={() => editLevels()}>
-                    <Feather name={btnHeaderIcon} size={22} color={COLORS.primary}/>
+                    onPress={() => setEditBtnView(!editBtnView)}>
+                    <Feather name={editBtnView ? "x" : "edit-3"} size={22} color={COLORS.primary}/>
                 </TouchableOpacity>
             </View>
             <View style={styles.container}>
@@ -143,17 +130,19 @@ export default function Levels() {
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item: level , index}) => (
                             <View>
-                                {level.editing || level.adding ? <LevelEdit
-                                    key = {index}
-                                    level = {level}
-                                    cancelAction = {() => {level.editing ? editLevelCancel(index) : addLevelCancel(index)}}
-                                />
-                                : <Level
-                                    key = {index} 
-                                    level = {level}
-                                    editAction = {() => editLevel(index)}
-                                    editing = {editBtnView}
-                                />}
+                                {editingLevelIndex == index ? 
+                                    <LevelEdit
+                                        key = {index}
+                                        level = {editingLevel}
+                                        cancelAction = {() => setEditingLevelIndex(-1)}
+                                    />:
+                                    <Level
+                                        key = {index} 
+                                        level = {level}
+                                        editAction = {() => editLevel(index)}
+                                        editing = {editBtnView}
+                                    />
+                                }
                                 
                                 {editBtnView &&
                                     <View style={styles.addBtnContainer}>
