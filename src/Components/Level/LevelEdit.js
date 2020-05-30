@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { View, Text, TouchableOpacity, TextInput} from 'react-native'
 import { Feather } from '@expo/vector-icons'
 
@@ -10,6 +10,8 @@ export const LevelEdit = ({
     cancelAction = () => {},
     confirmAction = () => {}
 }) => {
+    const [levelObj, setLevelObj] = useState(level)
+
     const lotRef = useRef()
     const opPerDayRef = useRef()
     const minimumRef = useRef()
@@ -18,12 +20,13 @@ export const LevelEdit = ({
     const riscMoneyRef = useRef()
     const lossDayRef = useRef()
     const surviveDaysRef = useRef()
+
     return(
         <View style={styles.levelCard}>
             <View style={styles.levelCardHeader}>
                 <View style={styles.levelLabel}>
                     <Text style={[styles.label, {marginRight: 15}]}>Nível</Text>
-                    <Text style={styles.level}>{ level.level }</Text>
+                    <Text style={styles.level}>{ levelObj.level }</Text>
                 </View>
                 <View>
                     <View style={styles.levelBtnEditBox}>
@@ -49,7 +52,13 @@ export const LevelEdit = ({
                             ref={lotRef}
                             returnKeyType = "next"
                             keyboardType = "numeric"
-                            value = {level.lot}
+                            value = {levelObj.lot}
+                            onChange={e => {
+                                const val = e.target.val
+                                setLevelObj(prevState => {
+                                    return {...prevState, lot: val}
+                                })
+                            }}
                             onSubmitEditing={() => opPerDayRef.current.focus()}
                             blurOnSubmit = {false}
                         />
@@ -60,7 +69,13 @@ export const LevelEdit = ({
                             ref={opPerDayRef}
                             returnKeyType = "next"
                             keyboardType = "numeric"
-                            value = {level.opPerDay}
+                            value = {levelObj.opPerDay}
+                            onChange={e => {
+                                const val = e.target.val
+                                setLevelObj(prevState => {
+                                    return {...prevState, opPerDay: val}
+                                })
+                            }}
                             onSubmitEditing={() => minimumRef.current.focus()}
                             blurOnSubmit = {false}
                         />
@@ -73,7 +88,13 @@ export const LevelEdit = ({
                             ref={minimumRef}
                             returnKeyType = "next"
                             keyboardType = "numeric"
-                            value = {level.minimum}
+                            value = {levelObj.minimum}
+                            onChange={e => {
+                                const val = e.target.val
+                                setLevelObj(prevState => {
+                                    return {...prevState, minimum: val}
+                                })
+                            }}
                             onSubmitEditing = {() => targetRef.current.focus()}
                             blurOnSubmit = {false}
                         />
@@ -84,7 +105,13 @@ export const LevelEdit = ({
                             ref={targetRef}
                             returnKeyType = "next"
                             keyboardType = "numeric"
-                            value = {level.target}
+                            value = {levelObj.target}
+                            onChange={e => {
+                                const val = e.target.val
+                                setLevelObj(prevState => {
+                                    return {...prevState, target: val}
+                                })
+                            }}
                             onSubmitEditing = {() => riscPtRef.current.focus()}
                             blurOnSubmit = {false}
                         />
@@ -97,7 +124,13 @@ export const LevelEdit = ({
                             ref={riscPtRef}
                             returnKeyType = "next"
                             keyboardType = "numeric"
-                            value = {level.riscPt}
+                            value = {levelObj.riscPt}
+                            onChange={e => {
+                                const val = e.target.val
+                                setLevelObj(prevState => {
+                                    return {...prevState, riscPt: val}
+                                })
+                            }}
                             onSubmitEditing = {() => riscMoneyRef.current.focus()}
                             blurOnSubmit = {false}
                         />
@@ -108,7 +141,13 @@ export const LevelEdit = ({
                             ref={riscMoneyRef}
                             returnKeyType = "next"
                             keyboardType = "numeric"
-                            value = {level.riscMoney}
+                            value = {levelObj.riscMoney}
+                            onChange={e => {
+                                const val = e.target.val
+                                setLevelObj(prevState => {
+                                    return {...prevState, riscMoney: val}
+                                })
+                            }}
                             onSubmitEditing = {() => lossDayRef.current.focus()}
                             blurOnSubmit = {false}
                         />
@@ -121,7 +160,13 @@ export const LevelEdit = ({
                             ref={lossDayRef}
                             returnKeyType = "next"
                             keyboardType = "numeric"
-                            value = {level.lossDay}
+                            value = {levelObj.lossDay}
+                            onChange={e => {
+                                const val = e.target.val
+                                setLevelObj(prevState => {
+                                    return {...prevState, lossDay: val}
+                                })
+                            }}
                             onSubmitEditing = {() => surviveDaysRef.current.focus()}
                             blurOnSubmit = {false}
                         />
@@ -132,7 +177,13 @@ export const LevelEdit = ({
                             ref={surviveDaysRef}
                             returnKeyType = "done"
                             keyboardType = "numeric"
-                            value = {level.surviveDays}
+                            value = {levelObj.surviveDays}
+                            onChange={e => {
+                                const val = e.target.val
+                                setLevelObj(prevState => {
+                                    return {...prevState, surviveDays: val}
+                                })
+                            }}
                             onSubmitEditing = {() => {}}
                         />
                     </View>
